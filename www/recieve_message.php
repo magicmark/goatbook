@@ -32,7 +32,7 @@ function goatify ($img) {
   $goatSize = array(
     'x' => $source->face['w'],
     'y' => $source->face['w']
-  )
+  );
 
   //header('Content-Type: image/jpeg');
 
