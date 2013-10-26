@@ -56,8 +56,8 @@ $API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
 
 $from = $_POST['from'];
 $to = $_POST['to'];
-// $content = $_POST['content'];
-$content = "radu.ghitescu"; 
+$content = $_POST['content'];
+
 //$msg_id - $_POST['msg_id'];
 $imageExists = true;
 if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== false) ){
