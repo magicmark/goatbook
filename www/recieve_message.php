@@ -8,7 +8,7 @@ $msg_id - $_POST['msg_id'];
 
 
 // It works, we don't need to send a message back.
-/*
+
 try
 {
     // Create a Clockwork object using your API key
@@ -29,4 +29,3 @@ catch (ClockworkException $e)
 {
     echo 'Exception sending SMS: ' . $e->getMessage();
 }
-*/
