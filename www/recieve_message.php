@@ -11,6 +11,7 @@ function goatify ($img) {
   $overlay  = new Image('../backend/images/goathead.png');
 
   $source->getFace();
+
   if (!isset($source->face['x'])){
     $source->face['x'] = $source->size[0] / 3;
     $source->face['y'] = $source->size[1] / 3;
@@ -22,7 +23,6 @@ function goatify ($img) {
     'x' => -50,
     'y' => -100
   );
-  error_log("face x:" . $source->face['x']);
   $facePos = array(
     'x' => $source->face['x'] + $faceOffset['x'],
     'y' => $source->face['y'] + $faceOffset['y'],
