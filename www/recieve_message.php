@@ -1,5 +1,5 @@
 <?php
-require 'class-Clockwork.php';
+require '../backend/class-Clockwork.php';
 $API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
 
 $from = $_POST['from'];
@@ -14,7 +14,7 @@ try
     $clockwork = new Clockwork( $API_KEY );
  
     // Setup and send a message
-    $message = array( 'to' => $from, 'from' => $to => 'Here\'s your URL back: $content' );
+    $message = array( 'to' => $from, 'message' => 'Here\'s your URL back: $content' );
     $result = $clockwork->send( $message );
  
     // Check if the send was successful
