@@ -22,7 +22,7 @@ function goatify ($img) {
     'x' => -50,
     'y' => -100
   );
-  
+  error_log("face x:" $source->face['x']);
   $facePos = array(
     'x' => $source->face['x'] + $faceOffset['x'],
     'y' => $source->face['y'] + $faceOffset['y'],
@@ -45,11 +45,11 @@ $API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
 $from = $_POST['from'];
 $to = $_POST['to'];
 $content = $_POST['content'];
-$msg_id - $_POST['msg_id'];
+//$msg_id - $_POST['msg_id'];
 
 if (strpos($content,"http://") !== false) {
   $extension = pathinfo($content, PATHINFO_EXTENSION);
-  if (!in_array($extension, array("png","jpg"))) {
+  if (!in_array($extension, array("png","jpg","jpeg"))) {
     die('uh oh!');
   }
   // filename not really all that random, but for this will more than suffice!
@@ -85,7 +85,7 @@ try
   $clockwork = new Clockwork( $API_KEY );
 
   // Setup and send a message
-  $message = array( 'to' => $from, 'message' => 'Thank you for using GoatBook! http://goat.vladh.net/view.php?id='.$id);
+  $message = array( 'to' => $from, 'message' => "Thank you for using GoatBook!\nhttp://goat.vladh.net/view.php?id=".$id);
   $result = $clockwork->send( $message );
 
   // Check if the send was successful
