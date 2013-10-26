@@ -14,13 +14,13 @@ class Image {
   function __construct($name) {
     $this->name = $name;
     $this->size = getimagesize($this->name);
-    $extension = pathinfo($content, PATHINFO_EXTENSION);
-    if ($extension = "png") {
+    $extension = pathinfo($this->name, PATHINFO_EXTENSION);
+    if ($extension == "png") {
       $this->type = "png";
     } else if ($extension = "jpg") {
-      $this->type = "jpeg";
+      $this->type == "jpeg";
     } else if ($extension = "jpeg") {
-      $this->type = "jpeg";
+      $this->type == "jpeg";
     } else {
       $this->type = "png";
     }
