@@ -2,7 +2,7 @@
 
 ini_set("memory_limit","128M");
 set_time_limit(0);
-include "image.php";
+include "../backend/image.php";
 
 function goatify ($img) {
 
