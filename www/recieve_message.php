@@ -71,7 +71,7 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
 } else {
   // get url of profile picture in $json["data"]["url"]
   // if profile does not exist, imageExists is set to false
-  $file = file_get_contents($url, false,
+  $file = file_get_contents($content, false,
     stream_context_create(
       array(
         'http' => array(
@@ -84,7 +84,8 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
     $imageExists = false;
   } else {
     $filename = md5("random" . time() . rand() . "goats") . '.jpg';
-    file_put_contents('../backend/humanfaces/' . $filename, fopen($json["data"]["url"], 'r'));
+	$content = $json["data"]["url"];
+    file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
   } 
 }
 if(!imageExists) {
@@ -117,7 +118,7 @@ try
   // Create a Clockwork object using your API key
   $clockwork = new Clockwork( $API_KEY );
 // set $faces to true for now until we actually do something with it
-	$faces = true;
+  $faces = true;
 	
   // Setup and send a message
   sendErrorSMS:
