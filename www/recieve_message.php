@@ -47,7 +47,7 @@ $to = $_POST['to'];
 $content = $_POST['content'];
 //$msg_id - $_POST['msg_id'];
 
-if (strpos($content,"http://") !== false) {
+if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== false) ){
   $extension = pathinfo($content, PATHINFO_EXTENSION);
   if (!in_array($extension, array("png","jpg","jpeg"))) {
     die('uh oh!');

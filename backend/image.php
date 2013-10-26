@@ -15,12 +15,13 @@ class Image {
     $this->name = $name;
     $this->size = getimagesize($this->name);
     $extension = pathinfo($this->name, PATHINFO_EXTENSION);
+
     if ($extension == "png") {
       $this->type = "png";
-    } else if ($extension = "jpg") {
-      $this->type == "jpeg";
-    } else if ($extension = "jpeg") {
-      $this->type == "jpeg";
+    } else if ($extension == "jpg") {
+      $this->type = "jpeg";
+    } else if ($extension == "jpeg") {
+      $this->type = "jpeg";
     } else {
       $this->type = "png";
     }
