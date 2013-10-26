@@ -30,11 +30,14 @@
 	float: left;
 	background: url('files/logo.png') no-repeat;
 }
-
+#wrap-content {
+	width:100%;
+	background: #666;
+}
 #content {
 	min-height: 560px;
 	width: 100%;
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 }
 
