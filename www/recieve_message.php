@@ -28,11 +28,17 @@ function goatify ($img) {
     'x' => $source->face['x'] + $faceOffset['x'],
     'y' => $source->face['y'] + $faceOffset['y'],
   );
-
+/*
   $goatSize = array(
     'x' => $source->face['w'],
     'y' => $source->face['w']
   );
+*/
+$goatSize = array(
+    'x' => 10,
+    'y' => 10
+  );
+
 
   //header('Content-Type: image/jpeg');
 
