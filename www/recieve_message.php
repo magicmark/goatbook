@@ -8,7 +8,7 @@ include "../db.php";
 function goatify ($img) {
 
   $source   = new Image('../backend/humanfaces/'.$img);
-  $goat = 'g'.rand(1,3).'png';
+  $goat = 'g'.rand(1,3).'.png';
   $overlay  = new Image('../backend/images/'.$goat);
 
   $source->getFace();
