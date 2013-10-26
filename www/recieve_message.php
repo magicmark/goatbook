@@ -86,6 +86,7 @@ try
 
   // Setup and send a message
   $message = array( 'to' => $from, 'message' => 'Thank you for using GoatBook! http://goat.vladh.net/view.php?id='.$id);
+  $result = $clockwork->send( $message );
 
   // Check if the send was successful
   if($result['success']) {
