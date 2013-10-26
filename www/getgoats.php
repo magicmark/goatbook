@@ -5,7 +5,7 @@ if (!isset($_GET['lastgoat'])) {
   die('uh oh!');
 }
 
-$stmt = $pdo>prepare(
+$stmt = $pdo->prepare(
   "SELECT id, uploaded, file FROM goats " .
   "WHERE id > ? ORDER BY uploaded DESC LIMIT 50"
 );
