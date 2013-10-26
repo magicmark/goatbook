@@ -6,7 +6,7 @@ include "image.php";
 
 function goatify ($img) {
 
-  $source   = new Image('humanfaces/'.$img);
+  $source   = new Image('../backend/'.$img);
   $overlay  = new Image('images/goathead.png');
 
   $source->getFace();
@@ -53,7 +53,7 @@ if (strpos($content,"http://") !== false) {
   }
   // filename not really all that random, but for this will more than suffice!
   $filename = md5("random" . time() . rand() . "goats") . '.' . $extension;
-  file_put_contents('humanfaces/' . $filename, fopen($content, 'r'));
+  file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
 }
 
 
@@ -61,7 +61,22 @@ if (!goatify($filename)) {
   die('uh oh!');
 }
 
+try
+{
 
+  $stmt = $db->prepare(
+    "INSERT INTO goats (id, file, source, uploaded) " .
+    "VALUES (NULL, :filename, :source, :uploaded)"
+  );
+  $stmt->bindValue(':filename', $filename,  PDO::PARAM_STR);
+  $stmt->bindValue(':source', $content,  PDO::PARAM_STR);
+  $stmt->bindValue(':uploaded', $time(),  PDO::PARAM_INT);
+  $stmt->execute();
+  $id =  $db->lastInsertId();
+
+} catch(PDOException $ex) {
+  die("uh oh! Error!" . $ex->getMessage());
+}
 
 try
 {
@@ -69,17 +84,17 @@ try
   $clockwork = new Clockwork( $API_KEY );
 
   // Setup and send a message
-  $message = array( 'to' => $from, 'message' => 'Here\'s your URL back: $content' );
-  $result = $clockwork->send( $message );
+  $message = array( 'to' => $from, 'message' => 'Thank you for using GoatBook! http://goat.vladh.net/view.php?id='.$id);
 
-// Check if the send was successful
-if($result['success']) {
-echo 'Message sent - ID: ' . $result['id'];
-} else {
-echo 'Message failed - Error: ' . $result['error_message'];
+  // Check if the send was successful
+  if($result['success']) {
+    echo 'Message sent - ID: ' . $result['id'];
+  } else {
+    echo 'Message failed - Error: ' . $result['error_message'];
+  }
 }
-}
+
 catch (ClockworkException $e)
 {
-echo 'Exception sending SMS: ' . $e->getMessage();
+  echo 'Exception sending SMS: ' . $e->getMessage();
 }
