@@ -5,11 +5,13 @@ set_time_limit(0);
 include "../backend/image.php";
 include "../db.php";
 
+
 function goatify ($img) {
 
   $source   = new Image('../backend/humanfaces/'.$img);
   $goat = 'g'.rand(1,3).'.png';
   $overlay  = new Image('../backend/images/'.$goat);
+  $scale = 1.4;
 
   $source->getFace();
 
@@ -18,32 +20,30 @@ function goatify ($img) {
     $source->face['y'] = $source->size[1] / 3;
   }
 
-  $canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
-
-  $faceOffset = array(
-    'x' => -50,
-    'y' => -100
-  );
-  $facePos = array(
-    'x' => $source->face['x'] + $faceOffset['x'],
-    'y' => $source->face['y'] + $faceOffset['y'],
-  );
-/*
   $goatSize = array(
-    'x' => $source->face['w'],
-    'y' => $source->face['w']
+    'x' => intval($source->face['w'] * $scale),
+    'y' => intval($source->face['w'] * $scale)
   );
-*/
-$goatSize = array(
-    'x' => 10,
-    'y' => 10
+
+  $canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
+  $goathead = imagecreatetruecolor($goatSize['x'], $goatSize['y']);
+
+  $offset = (($source->face['w'] * 1.2) - $source->face['w']) / 2;
+  $facePos = array(
+    'x' => $source->face['x'] - $offset,
+    'y' => $source->face['y'] - $offset,
   );
 
 
   //header('Content-Type: image/jpeg');
 
+  imagecolortransparent($goathead, imagecolorallocate($goathead, 0, 0, 0));
+  imagealphablending($goathead, false);
+  imagesavealpha($goathead, true);
+  imagecopyresampled($goathead, $overlay->img, 0, 0, 0, 0, $goatSize['x'], $goatSize['y'], $overlay->size[0], $overlay->size[1]);
+
   imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
-  imagecopy($canvas, $overlay->img, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
+  imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
   imagejpeg($canvas, 'goatfaces/' . $img);
 
   return true;
