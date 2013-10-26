@@ -14,7 +14,7 @@ class Image {
   function __construct($name) {
     $this->name = $name;
     $this->size = getimagesize($this->name);
-    $extension = pathinfo($content, PATHINFO_EXTENSION);
+    $extension = pathinfo($this->name, PATHINFO_EXTENSION);
     if ($extension = "png") {
       $this->type = "png";
     } else if ($extension = "jpg") {
