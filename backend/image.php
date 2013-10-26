@@ -14,8 +14,17 @@ class Image {
   function __construct($name) {
     $this->name = $name;
     $this->size = getimagesize($this->name);
-    // hacky but works nonetheless.
-    $this->type = str_replace("image/","",image_type_to_mime_type($this->size[2]));
+    $extension = pathinfo($content, PATHINFO_EXTENSION);
+    if ($extension = "png") {
+      $this->type = "png";
+    } else if ($extension = "jpg") {
+      $this->type = "jpeg";
+    } else if ($extension = "jpeg") {
+      $this->type = "jpeg";
+    } else {
+      $this->type = "png";
+    }
+    //$this->type = str_replace("image/","",image_type_to_mime_type($this->size[2]));
 
     // should maybe place this in seperate function?
     $func = 'imagecreatefrom' . $this->type;
