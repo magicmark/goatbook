@@ -1,14 +1,13 @@
  <?php
-require 'class-Clockwork.php';
-$API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
+require_once 'base.php';
 
 try
 {
     // Create a Clockwork object using your API key
-    $clockwork = new Clockwork( $API_KEY );
+    $clockwork = new Clockwork( API_KEY );
  
     // Setup and send a message
-    $message = array( 'to' => '447716743842', 'from' => 'message' => 'This is a test!' );
+    $message = array( 'to' => '447716743842',  'message' => 'This is a test!' );
     $result = $clockwork->send( $message );
  
     // Check if the send was successful
