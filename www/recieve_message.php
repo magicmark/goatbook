@@ -65,7 +65,7 @@ if (!goatify($filename)) {
 try
 {
 
-  $stmt = $db->prepare(
+  $stmt = $pdo->prepare(
     "INSERT INTO goats (id, file, source, uploaded) " .
     "VALUES (NULL, :filename, :source, :uploaded)"
   );
@@ -73,7 +73,7 @@ try
   $stmt->bindValue(':source', $content,  PDO::PARAM_STR);
   $stmt->bindValue(':uploaded', $time(),  PDO::PARAM_INT);
   $stmt->execute();
-  $id =  $db->lastInsertId();
+  $id =  $pdo->lastInsertId();
 
 } catch(PDOException $ex) {
   die("uh oh! Error!" . $ex->getMessage());
