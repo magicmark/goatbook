@@ -1,5 +1,5 @@
 <?php
-require '../backend/class-Clockwork.php';
+require 'class-Clockwork.php';
 $API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
 
 $from = $_POST['from'];
