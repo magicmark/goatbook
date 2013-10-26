@@ -14,7 +14,7 @@ try
     $clockwork = new Clockwork( $API_KEY );
  
     // Setup and send a message
-    $message = array( 'to' => $from, 'from' => $to => 'Here\'s your URL back: $content' );
+    $message = array( 'to' => $from, 'message' => 'Here\'s your URL back: $content' );
     $result = $clockwork->send( $message );
  
     // Check if the send was successful
