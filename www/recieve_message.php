@@ -22,7 +22,7 @@ function goatify ($img) {
     'x' => -50,
     'y' => -100
   );
-  error_log("face x:" $source->face['x']);
+  error_log("face x:" . $source->face['x']);
   $facePos = array(
     'x' => $source->face['x'] + $faceOffset['x'],
     'y' => $source->face['y'] + $faceOffset['y'],
