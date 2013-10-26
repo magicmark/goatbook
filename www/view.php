@@ -1,6 +1,6 @@
 <?php
 
-include 'db.php';
+include '../db.php';
 
 $stmt = $this->db->prepare("SELECT * FROM goats");
 $stmt->execute();
