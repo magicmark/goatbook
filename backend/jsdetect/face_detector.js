@@ -12,7 +12,7 @@ eval(fs.readFileSync('face.js')+'');
 //                                                                  "worker" : 1 })
 
 
-var Canvas = require('/usr/local/lib/node_modules/canvas')
+var Canvas = require('/usr/local/lib/node_modules/canvas/lib/canvas.js')
   , canvas = new Canvas(200,200)
   , ctx = canvas.getContext('2d');
 
