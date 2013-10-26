@@ -1,8 +1,0 @@
-Colors
-Yellow - #ffcc00
-Dark grey - #202020
-Middle grey - #666666
-Light grey - #999999
-
-Type
-Tahoma, Tahome Bold
