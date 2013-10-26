@@ -71,7 +71,7 @@ try
   );
   $stmt->bindValue(':filename', $filename,  PDO::PARAM_STR);
   $stmt->bindValue(':source', $content,  PDO::PARAM_STR);
-  $stmt->bindValue(':uploaded', $time(),  PDO::PARAM_INT);
+  $stmt->bindValue(':uploaded', time(),  PDO::PARAM_INT);
   $stmt->execute();
   $id =  $pdo->lastInsertId();
 
