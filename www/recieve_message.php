@@ -6,8 +6,8 @@ include "../backend/image.php";
 
 function goatify ($img) {
 
-  $source   = new Image('../backend/'.$img);
-  $overlay  = new Image('images/goathead.png');
+  $source   = new Image('../backend/humanfaces/'.$img);
+  $overlay  = new Image('../backend/images/goathead.png');
 
   $source->getFace();
   if (!isset($source->face['x'])){
