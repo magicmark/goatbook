@@ -34,7 +34,7 @@ class FaceDetector
         if (is_file($detection_file)) {
             $this->detection_data = unserialize(file_get_contents($detection_file));
         } else {
-            throw new Exception("Couldn't load detection data");
+         //   throw new Exception("Couldn't load detection data");
         }
     }
 
