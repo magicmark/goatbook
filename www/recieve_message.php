@@ -56,9 +56,10 @@ $API_KEY = '873be9ec15eb56abca6c87d24da9199931090173';
 
 $from = $_POST['from'];
 $to = $_POST['to'];
-$content = $_POST['content'];
+// $content = $_POST['content'];
+$content = "radu.ghitescu"; 
 //$msg_id - $_POST['msg_id'];
-
+$imageExists = true;
 if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== false) ){
   $extension = pathinfo($content, PATHINFO_EXTENSION);
   if (!in_array($extension, array("png","jpg","jpeg"))) {
@@ -67,8 +68,28 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
   // filename not really all that random, but for this will more than suffice!
   $filename = md5("random" . time() . rand() . "goats") . '.' . $extension;
   file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
+} else {
+  // get url of profile picture in $json["data"]["url"]
+  // if profile does not exist, imageExists is set to false
+  $file = file_get_contents($url, false,
+    stream_context_create(
+      array(
+        'http' => array(
+          'ignore_errors' => true
+         )
+      )
+    ));
+  $json = json_decode($file, true); 
+  if(array_key_exists("error", $json)) {
+    $imageExists = false;
+  } else {
+    $filename = md5("random" . time() . rand() . "goats") . '.jpg';
+    file_put_contents('../backend/humanfaces/' . $filename, fopen($json["data"]["url"], 'r'));
+  } 
 }
-
+if(!imageExists) {
+  goto sendErrorSMS;
+}
 
 if (!goatify($filename)) {
   die('uh oh!');
@@ -95,9 +116,17 @@ try
 {
   // Create a Clockwork object using your API key
   $clockwork = new Clockwork( $API_KEY );
-
+// set $faces to true for now until we actually do something with it
+	$faces = true;
+	
   // Setup and send a message
-  $message = array( 'to' => $from, 'message' => "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://goat.vladh.net/view.php?id=".$id);
+  sendErrorSMS:
+  if(!imageExists || !faces) {
+	$message = "Thank you for choosing GoatBook! Unfortunately, the image you wanted to Goatify does not exist or I have found no faces to goat. Please send me another image.";
+  } else {
+    $message = "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://goat.vladh.net/view.php?id=".$id;
+  }
+  $message = array( 'to' => $from, 'message' => $message);
   $result = $clockwork->send( $message );
 
   // Check if the send was successful
