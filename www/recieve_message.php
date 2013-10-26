@@ -8,7 +8,8 @@ include "../db.php";
 function goatify ($img) {
 
   $source   = new Image('../backend/humanfaces/'.$img);
-  $overlay  = new Image('../backend/images/goathead.png');
+  $goat = 'g'.rand(1,3).'png';
+  $overlay  = new Image('../backend/images/'.$goat);
 
   $source->getFace();
 
@@ -28,10 +29,15 @@ function goatify ($img) {
     'y' => $source->face['y'] + $faceOffset['y'],
   );
 
+  $goatSize = array(
+    'x' => $source->face['w'],
+    'y' => $source->face['w']
+  )
+
   //header('Content-Type: image/jpeg');
 
   imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
-  imagecopy($canvas, $overlay->img, $facePos['x'], $facePos['y'], 0, 0, $overlay->size[0], $overlay->size[1]);
+  imagecopy($canvas, $overlay->img, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
   imagejpeg($canvas, 'goatfaces/' . $img);
 
   return true;
@@ -85,7 +91,7 @@ try
   $clockwork = new Clockwork( $API_KEY );
 
   // Setup and send a message
-  $message = array( 'to' => $from, 'message' => "Thank you for using GoatBook!\nhttp://goat.vladh.net/view.php?id=".$id);
+  $message = array( 'to' => $from, 'message' => "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://goat.vladh.net/view.php?id=".$id);
   $result = $clockwork->send( $message );
 
   // Check if the send was successful
