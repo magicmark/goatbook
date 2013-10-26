@@ -12,4 +12,5 @@ $stmt = $pdo->prepare(
 $stmt->bindValue(1, $_GET['lastgoat'], PDO::PARAM_INT);
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);  
-print_r($results);
+$json = json_encode($results[0]);
+echo $json;
