@@ -45,8 +45,6 @@ function goatify ($img) {
   imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
   imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
   imagejpeg($canvas, 'goatfaces/' . $img);
-  imagedestroy($canvas);
-  imagedestroy($goathead);
   return true;
 
 }
@@ -60,7 +58,7 @@ $to = $_POST['to'];
 $content = $_POST['content'];
 
 //$msg_id - $_POST['msg_id'];
-//$imageExists = true;
+$imageExists = true;
 
 if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== false) ){
   $extension = pathinfo($content, PATHINFO_EXTENSION);
@@ -96,20 +94,11 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
   } 
 }
 
-$facesGot = 0;
-
-while (true) {
-  if (!goatify($filename)) {
-	if ($facesGot < 1) $message = "Thank you for choosing GoatBook! Unfortunately, the image you wanted to Goatify does not exist or I have found no faces to goat. Please send me another image.";
-	break;
-  } else {
-	$facesGot++;
-	rename('goatfaces/'.$filename, '../backend/humanfaces/'.$filename);
-  }
-}
 // only look for faces if the image actually exists
-if(!isset($message)) {
-
+if($imageExists) {
+  if (!goatify($filename)) {
+    die('uh oh!');
+  } 
   try
   {
     $stmt = $pdo->prepare(
@@ -134,8 +123,11 @@ try
   $faces = true;
 	
   // Setup and send a message
-  if(!isset($message))
-	$message = "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://www.goatbook.co.uk/view.php?id=".$id;
+  if(!$imageExists || !$faces) {
+	$message = "Thank you for choosing GoatBook! Unfortunately, the image you wanted to Goatify does not exist or I have found no faces to goat. Please send me another image.";
+  } else {
+    $message = "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://goat.vladh.net/view.php?id=".$id;
+  }
   $message = array( 'to' => $from, 'message' => $message);
   $result = $clockwork->send( $message );
 
