@@ -44,6 +44,28 @@
 				$('#content').width(contentWidth);
 			}
 		}
+		function addGoat(imageJson) {
+			var imagePath = "http://goat.vladh.net/backend/humanfaces/" + imageJson["file"];
+			var gridSize = Math.floor((Math.random()*3)+1);
+			var goatWidth = gridSize * 80;
+			var goatHeight = gridSize * 80;
+			$('<div class="goat size' + gridSize + '" style="background: url(\'' + imagePath + '\') no-repeat"></div>').appendTo("#content");
+		}
+		function getGoats() {
+           $.ajax({
+                type: "GET",
+                url: "getgoats.php",
+                data: lastgoat=53,
+                dataType:'text',
+                success: function(response){
+					var jsonResults = JSON.parse(response);
+					for(int i = 0; i < jsonResults.length; i++) {
+						addGoat(jsonResults[i]);
+					}
+                }
+            });			
+		}
+		
 	</script>
   </body>
 </html>
