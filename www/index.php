@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
 	<link href="style.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>	
     <title>Goatbook</title>
 	<style type="text/css">
 	#content{
@@ -47,10 +48,18 @@
                 }
             });			
 		}
+		function initialiseGrid() {
+			var container = document.querySelector('#content');
+			var msnry = new Masonry( container, {
+				// options
+				columnWidth: 160,
+				itemSelector: '.goat'
+			});
+		}
 		
 	</script>
   </head>
-  <body onload="fixContentSizes(); getGoats();">
+  <body onload="fixContentSizes(); getGoats(); initialiseGrid();">
 	<div id="header">
 	  <div id="logo"></div>
 	</div>
