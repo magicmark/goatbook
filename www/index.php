@@ -37,7 +37,7 @@
                 type: "GET",
                 url: "getgoats.php",
                 data: {
-					lastgoat: 31
+					lastgoat: 5
 				},
                 dataType:'text',
                 success: function(response){

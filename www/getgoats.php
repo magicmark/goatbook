@@ -7,7 +7,7 @@ if (!isset($_GET['lastgoat'])) {
 
 $stmt = $pdo->prepare(
   "SELECT id, uploaded, file FROM goats " .
-  "WHERE id > ? ORDER BY uploaded DESC LIMIT 50"
+  "WHERE id > (SELECT MAX(id) - ? FROM goats) ORDER BY uploaded DESC"
 );
 $stmt->bindValue(1, $_GET['lastgoat'], PDO::PARAM_INT);
 $stmt->execute();
