@@ -42,22 +42,16 @@
 }
 
 .goat {
-float: left;
+
 }
 #goat1 {
-	position: relative;
-	top: -80px;
-	left: 320px;
+	float: left;;
 }
 #goat2{
-	position: relative;
-	top: 160px;
-	left: 160px;
+	margin: 0 auto;
 }
 #goat3{
-	position: relative;
-	top: 0px;
-	left: 720px;
+	float:right;
 }
 #goat4{
 	position: relative;
