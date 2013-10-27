@@ -10,29 +10,9 @@
 		background-color: #666;
 	}
 	</style>	
-  </head>
-  <body onload="fixContentSizes();">
-	<div id="header">
-	  <div id="logo"></div>
-	</div>
-	<div class="stripe" id="topstripe"></div>
-	<div id="wrap-content">
-		<div id="content">
-			<div id="howto">
-				<h1>Send an SMS</h1>
-				<h2>+44 0000 00000</h2>
-				<h3>with the name of your friend</h3>
-			</div>
-		</div>
-	</div>
-	<div class="stripe" id="botstripe"></div>
-	<div id="footer">
-		<div id="footer-logo"></div>
-	</div>
 	<script type="text/javascript" language="javascript">
 		function fixContentSizes() {
 			var contentHeight = $('#botstripe').offset().top - $('#topstripe').offset().top - 9;
-			//console.log(contentHeight);
 			if(contentHeight % 80 != 0) {
 				contentHeight = contentHeight + (80 - contentHeight%80);
 				$('#content').height(contentHeight);
@@ -59,7 +39,7 @@
                 dataType:'text',
                 success: function(response){
 					var jsonResults = JSON.parse(response);
-					for(int i = 0; i < jsonResults.length; i++) {
+					for(var i=0; i < jsonResults.length; i++) {
 						addGoat(jsonResults[i]);
 					}
                 }
@@ -67,5 +47,24 @@
 		}
 		
 	</script>
+  </head>
+  <body onload="fixContentSizes(); getGoats();">
+	<div id="header">
+	  <div id="logo"></div>
+	</div>
+	<div class="stripe" id="topstripe"></div>
+	<div id="wrap-content">
+		<div id="content">
+			<div id="howto">
+				<h1>Send an SMS</h1>
+				<h2>+44 0000 00000</h2>
+				<h3>with the name of your friend</h3>
+			</div>
+		</div>
+	</div>
+	<div class="stripe" id="botstripe"></div>
+	<div id="footer">
+		<div id="footer-logo"></div>
+	</div>
   </body>
 </html>
