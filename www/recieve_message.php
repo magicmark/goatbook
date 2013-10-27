@@ -9,7 +9,7 @@ include "../db.php";
 function goatify ($img) {
 
   $source   = new Image('../backend/humanfaces/'.$img);
-  $goat = 'g'.rand(1,3).'.png';
+  $goat = 'g'.rand(1,2).'.png';
   $overlay  = new Image('../backend/images/'.$goat);
   $scale = 1.4;
 
@@ -60,14 +60,19 @@ $content = $_POST['content'];
 
 //$msg_id - $_POST['msg_id'];
 $imageExists = true;
+
 if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== false) ){
   $extension = pathinfo($content, PATHINFO_EXTENSION);
   if (!in_array($extension, array("png","jpg","jpeg"))) {
-    die('uh oh!');
+    $imageExists = false; 
   }
-  // filename not really all that random, but for this will more than suffice!
-  $filename = md5("random" . time() . rand() . "goats") . '.' . $extension;
-  file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
+  if(!$checkFile = curl_init($content)) {
+	$imageExists = false;
+  } else { 
+    // filename not really all that random, but for this will more than suffice!
+    $filename = md5("random" . time() . rand() . "goats") . '.' . $extension;
+    file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
+  }
 } else {
   // get url of profile picture in $json["data"]["url"]
   // if profile does not exist, imageExists is set to false
@@ -89,29 +94,26 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
     file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
   } 
 }
-if(!$imageExists) {
-  goto sendErrorSMS;
-}
 
-if (!goatify($filename)) {
-  die('uh oh!');
-}
-
-try
-{
-
-  $stmt = $pdo->prepare(
-    "INSERT INTO goats (id, file, source, uploaded) " .
-    "VALUES (NULL, :filename, :source, :uploaded)"
-  );
-  $stmt->bindValue(':filename', $filename,  PDO::PARAM_STR);
-  $stmt->bindValue(':source', $content,  PDO::PARAM_STR);
-  $stmt->bindValue(':uploaded', time(),  PDO::PARAM_INT);
-  $stmt->execute();
-  $id =  $pdo->lastInsertId();
-
-} catch(PDOException $ex) {
-  die("uh oh! Error!" . $ex->getMessage());
+// only look for faces if the image actually exists
+if($imageExists) {
+  if (!goatify($filename)) {
+    die('uh oh!');
+  }
+  try
+  {
+    $stmt = $pdo->prepare(
+      "INSERT INTO goats (id, file, source, uploaded) " .
+      "VALUES (NULL, :filename, :source, :uploaded)"
+    );
+    $stmt->bindValue(':filename', $filename,  PDO::PARAM_STR);
+    $stmt->bindValue(':source', $content,  PDO::PARAM_STR);
+    $stmt->bindValue(':uploaded', time(),  PDO::PARAM_INT);
+    $stmt->execute();
+    $id =  $pdo->lastInsertId();
+  } catch(PDOException $ex) {
+    die("uh oh! Error!" . $ex->getMessage());
+  }
 }
 
 try
@@ -122,7 +124,6 @@ try
   $faces = true;
 	
   // Setup and send a message
-  sendErrorSMS:
   if(!$imageExists || !$faces) {
 	$message = "Thank you for choosing GoatBook! Unfortunately, the image you wanted to Goatify does not exist or I have found no faces to goat. Please send me another image.";
   } else {
