@@ -126,7 +126,7 @@ try
   if(!$imageExists || !$faces) {
 	$message = "Thank you for choosing GoatBook! Unfortunately, the image you wanted to Goatify does not exist or I have found no faces to goat. Please send me another image.";
   } else {
-    $message = "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://goat.vladh.net/view.php?id=".$id;
+    $message = "Thank you for choosing GoatBook! We know you have a wide choice when it comes to Goat Apps, and we're grateful you chose ours.\n\nhttp://www.goatbook.co.uk/view.php?id=".$id;
   }
   $message = array( 'to' => $from, 'message' => $message);
   $result = $clockwork->send( $message );
