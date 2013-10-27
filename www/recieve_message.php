@@ -12,40 +12,42 @@ function goatify ($img) {
   $goat = 'g'.rand(1,2).'.png';
   $overlay  = new Image('../backend/images/'.$goat);
   $scale = 1.4;
+  $moreFaces = true;
 
+  do {
+  
   $source->getFace();
 
   if (!isset($source->face['x'])){
-    $source->face['x'] = $source->size[0] / 3;
-    $source->face['y'] = $source->size[1] / 3;
+    $moreFaces = false;
   }
+  if($moreFaces) {
+    $goatSize = array(
+      'x' => intval($source->face['w'] * $scale),
+      'y' => intval($source->face['w'] * $scale)
+    );
+    $canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
+    $goathead = imagecreatetruecolor($goatSize['x'], $goatSize['y']);
 
-  $goatSize = array(
-    'x' => intval($source->face['w'] * $scale),
-    'y' => intval($source->face['w'] * $scale)
-  );
-
-  $canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
-  $goathead = imagecreatetruecolor($goatSize['x'], $goatSize['y']);
-
-  $offset = (($source->face['w'] * 1.2) - $source->face['w']) / 2;
-  $facePos = array(
-    'x' => $source->face['x'] - $offset,
-    'y' => $source->face['y'] - $offset,
-  );
+    $offset = (($source->face['w'] * 1.2) - $source->face['w']) / 2;
+    $facePos = array(
+      'x' => $source->face['x'] - $offset,
+      'y' => $source->face['y'] - $offset,
+    );
 
 
   //header('Content-Type: image/jpeg');
 
-  imagecolortransparent($goathead, imagecolorallocate($goathead, 0, 0, 0));
-  imagealphablending($goathead, false);
-  imagesavealpha($goathead, true);
-  imagecopyresampled($goathead, $overlay->img, 0, 0, 0, 0, $goatSize['x'], $goatSize['y'], $overlay->size[0], $overlay->size[1]);
+    imagecolortransparent($goathead, imagecolorallocate($goathead, 0, 0, 0));
+    imagealphablending($goathead, false);
+    imagesavealpha($goathead, true);
+    imagecopyresampled($goathead, $overlay->img, 0, 0, 0, 0, $goatSize['x'], $goatSize['y'], $overlay->size[0], $overlay->size[1]);
 
-  imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
-  imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
-  imagejpeg($canvas, 'goatfaces/' . $img);
-
+    imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
+    imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
+    imagejpeg($canvas, 'goatfaces/' . $img);
+  }
+  while($moreFaces);
   return true;
 
 }
