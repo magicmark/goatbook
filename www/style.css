@@ -44,16 +44,36 @@
 .goat {
 float: left;
 }
-.size1, .size1 img {
+#goat1 {
+	position: relative;
+	top: 80px;
+	left: 80px;
+}
+#goat2{
+	position: relative;
+	top: 320px;
+	left: 400px;
+}
+#goat3{
+	position: relative;
+	top: 320px;
+	left: 720px;
+}
+#goat4{
+	position: relative;
+	top: 80px;
+	left: 1040px;
+}
+.size1 {
 	width: 80px;
 	height: 80px;
 }
 
-.size2, .size2 img{
+.size2{
 	width: 160px;
 	height: 160px;
 }
-.size3, .size3 img{
+.size3{
 	width: 240px;
 	height: 240px;
 }

@@ -3,7 +3,6 @@
     <meta charset="UTF-8">
 	<link href="style.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>	
     <title>Goatbook</title>
 	<style type="text/css">
 	#content{
@@ -25,38 +24,33 @@
 				$('#content').width(contentWidth);
 			}
 		}
-		function addGoat(imageJson) {
+		function addGoat(imageJson, divNumber) {
 			var imagePath = "http://goat.vladh.net/goatfaces/" + imageJson["file"];
 			var gridSize = Math.floor((Math.random()*3)+1);
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
-			$('<div class="goat size' + gridSize + '"><img src="' + imagePath + '" /></div>').prependTo("#content");
+			var currentDivId = "#goat" + divNumber;
+			$(currentDivId).addClass("size"+gridSize);
+			$(currentDivId).css("background-image", "url('"+imagePath+"')");
+			$(currentDivId).css("background-size", "100% 100%");
+			//$('<div class="goat size' + gridSize + '" id="goat' + divNumber + '"><img src="' + imagePath + '" /></div>').appendTo("#content");
 		}
 		function getGoats() {
            $.ajax({
                 type: "GET",
                 url: "getgoats.php",
                 data: {
-					lastgoat: 5
+					lastgoat: 4
 				},
                 dataType:'text',
                 success: function(response){
 					var jsonResults = JSON.parse(response);
 					for(var i=0; i < jsonResults.length; i++) {
-						addGoat(jsonResults[i]);
+						addGoat(jsonResults[i], i+1);
 					}
                 }
             });			
-		}
-		function initialiseGrid() {
-			var container = document.querySelector('#content');
-			var msnry = new Masonry( container, {
-				// options
-				columnWidth: 160,
-				itemSelector: '.goat'
-			});
-		}
-		
+		}		
 	</script>
   </head>
   <body onload="fixContentSizes(); getGoats(); initialiseGrid();">
@@ -71,6 +65,10 @@
 				<h2>+44 0000 00000</h2>
 				<h3>with the name of your friend</h3>
 			</div>
+			<div class="goat" id="goat1"></div>
+			<div class="goat" id="goat2"></div>
+			<div class="goat" id="goat3"></div>
+			<div class="goat" id="goat4"></div>
 		</div>
 	</div>
 	<div class="stripe" id="botstripe"></div>
