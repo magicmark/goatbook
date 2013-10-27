@@ -30,7 +30,7 @@
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
 			var currentDivId = "#goat" + divNumber;
-			if($(currentDivId).css("background-image")) == "url('" + imagePath + "')") {
+			if($(currentDivId).css("background-image") == "url('" + imagePath + "')") {
 				return false;
 			} else {
 				$(currentDivId).addClass("size"+gridSize);
