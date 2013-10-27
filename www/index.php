@@ -25,7 +25,7 @@
 			}
 		}
 		function addGoat(imageJson, divNumber) {
-			var imagePath = "http://goat.vladh.net/goatfaces/" + imageJson["file"];
+			var imagePath = "http://www.goatbook.co.uk/goatfaces/" + imageJson["file"];
 			var gridSize = Math.floor((Math.random()*3)+1);
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
@@ -56,7 +56,7 @@
             });			
 		}
 		function checkGoats() {
-			var intervalID = window.setInterval(function(){getGoats();}, 10000);
+			var intervalID = window.setInterval(function(){getGoats()}, 10000);
 		}
 	</script>
   </head>
