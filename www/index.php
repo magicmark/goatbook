@@ -31,7 +31,7 @@
 			var goatHeight = gridSize * 80;
 			var currentDivId = "#goat" + divNumber;
 			console.log($(currentDivId).css("background-image"));
-			if($(currentDivId).css("background-image") == "url('" + imagePath + "')") {
+			if($(currentDivId).css("background-image") == 'url("' + imagePath + '")') {
 				return false;
 			} else {
 				$(currentDivId).removeClass();
