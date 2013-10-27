@@ -96,11 +96,9 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
 
 // only look for faces if the image actually exists
 if($imageExists) {
-	// we goatify the crap out of it
-  while(goatify($filename)) {}
-/*  if (!goatify($filename)) {
+  if (!goatify($filename)) {
     die('uh oh!');
-  } */
+  } 
   try
   {
     $stmt = $pdo->prepare(
