@@ -89,7 +89,7 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
     file_put_contents('../backend/humanfaces/' . $filename, fopen($content, 'r'));
   } 
 }
-if(!imageExists) {
+if(!$imageExists) {
   goto sendErrorSMS;
 }
 
