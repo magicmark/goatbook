@@ -71,6 +71,7 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
 } else {
   // get url of profile picture in $json["data"]["url"]
   // if profile does not exist, imageExists is set to false
+  $content = 'https://graph.facebook.com/'.$content.'/picture?width=500&height=500&redirect=false';
   $file = file_get_contents($content, false,
     stream_context_create(
       array(
