@@ -51,6 +51,12 @@
                 }
             });			
 		}		
+		$(document).ready(function() {
+			function loadGoats() {     
+				getGoats();
+			}
+			setTimeout(loadGoats, 10000)
+		});
 	</script>
   </head>
   <body onload="fixContentSizes(); getGoats(); initialiseGrid();">
