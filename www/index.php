@@ -30,10 +30,14 @@
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
 			var currentDivId = "#goat" + divNumber;
-			$(currentDivId).addClass("size"+gridSize);
-			$(currentDivId).css("background-image", "url('"+imagePath+"')");
-			$(currentDivId).css("background-size", "100% 100%");
+			if($(currentDivId.css("background-image")) == "url('" + imagePath + "')") {
+				return false;
+			} else {
+				$(currentDivId).addClass("size"+gridSize);
+				$(currentDivId).css("background-image", "url('"+imagePath+"')");
+				$(currentDivId).css("background-size", "100% 100%");
 			//$('<div class="goat size' + gridSize + '" id="goat' + divNumber + '"><img src="' + imagePath + '" /></div>').appendTo("#content");
+			return true;
 		}
 		function getGoats() {
            $.ajax({
@@ -50,16 +54,13 @@
 					}
                 }
             });			
-		}		
-		$(document).ready(function() {
-			function loadGoats() {     
-				getGoats();
-			}
-			setTimeout(loadGoats, 10000)
-		});
+		}
+		function checkGoats() {
+			var intervalID = window.setInterval(getGoats, 10000);
+		}
 	</script>
   </head>
-  <body onload="fixContentSizes(); getGoats(); initialiseGrid();">
+  <body onload="fixContentSizes(); checkGoats(); initialiseGrid(); ">
 	<div id="header">
 	  <div id="logo"></div>
 	</div>
