@@ -35,7 +35,9 @@
            $.ajax({
                 type: "GET",
                 url: "getgoats.php",
-                data: lastgoat=53,
+                data: {
+					lastgoat: 53
+				},
                 dataType:'text',
                 success: function(response){
 					var jsonResults = JSON.parse(response);
