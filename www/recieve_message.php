@@ -7,40 +7,46 @@ include "../db.php";
 
 
 function goatify ($img) {
-
+	
   $source   = new Image('../backend/humanfaces/'.$img);
   $goat = 'g'.rand(1,2).'.png';
   $overlay  = new Image('../backend/images/'.$goat);
   $scale = 1.4;
-  $moreFaces = true;
-  do {  
-	$source->getFace();
-	if (!isset($source->face['x'])){
-		$moreFaces = false;
-	}
-		$goatSize = array(
-			'x' => intval($source->face['w'] * $scale),
-			'y' => intval($source->face['w'] * $scale)
-		);
-		$canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
-		$goathead = imagecreatetruecolor($goatSize['x'], $goatSize['y']);
+  $moreImages = true;
 
-		$offset = (($source->face['w'] * 1.2) - $source->face['w']) / 2;
-		$facePos = array(
-			'x' => $source->face['x'] - $offset,
-			'y' => $source->face['y'] - $offset,
-		);
+  $source->getFace();
+
+  if (!isset($source->face['x'])){
+	return false;
+  }
+
+  $goatSize = array(
+    'x' => intval($source->face['w'] * $scale),
+    'y' => intval($source->face['w'] * $scale)
+  );
+
+  $canvas = imagecreatetruecolor($source->size[0], $source->size[1]);
+  $goathead = imagecreatetruecolor($goatSize['x'], $goatSize['y']);
+
+  $offset = (($source->face['w'] * 1.2) - $source->face['w']) / 2;
+  $facePos = array(
+    'x' => $source->face['x'] - $offset,
+    'y' => $source->face['y'] - $offset,
+  );
+
+
   //header('Content-Type: image/jpeg');
-		imagecolortransparent($goathead, imagecolorallocate($goathead, 0, 0, 0));
-		imagealphablending($goathead, false);
-		imagesavealpha($goathead, true);
-		imagecopyresampled($goathead, $overlay->img, 0, 0, 0, 0, $goatSize['x'], $goatSize['y'], $overlay->size[0], $overlay->size[1]);
-		imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
-		imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
-		imagejpeg($canvas, 'goatfaces/' . $img);
-	
-  } while($moreFaces);
+
+  imagecolortransparent($goathead, imagecolorallocate($goathead, 0, 0, 0));
+  imagealphablending($goathead, false);
+  imagesavealpha($goathead, true);
+  imagecopyresampled($goathead, $overlay->img, 0, 0, 0, 0, $goatSize['x'], $goatSize['y'], $overlay->size[0], $overlay->size[1]);
+
+  imagecopy($canvas, $source->img, 0, 0, 0, 0, $source->size[0], $source->size[1]);
+  imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
+  imagejpeg($canvas, 'goatfaces/' . $img);
   return true;
+
 }
 
 
@@ -90,9 +96,11 @@ if ((strpos($content,"http://") !== false) || (strpos($content,"https://") !== f
 
 // only look for faces if the image actually exists
 if($imageExists) {
-  if (!goatify($filename)) {
+	// we goatify the crap out of it
+  while(goatify($filename)) {}
+/*  if (!goatify($filename)) {
     die('uh oh!');
-  }
+  } */
   try
   {
     $stmt = $pdo->prepare(
