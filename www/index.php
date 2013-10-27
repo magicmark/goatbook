@@ -38,6 +38,7 @@
 				$(currentDivId).css("background-size", "100% 100%");
 			//$('<div class="goat size' + gridSize + '" id="goat' + divNumber + '"><img src="' + imagePath + '" /></div>').appendTo("#content");
 			return true;
+			}
 		}
 		function getGoats() {
            $.ajax({
