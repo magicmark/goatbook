@@ -55,9 +55,9 @@
                 }
             });			
 		}
-		function checkGoats() {
-			var intervalID = window.setInterval(function(){getGoats()}, 10000);
-		}
+function checkGoats() {
+	window.setInterval(function(){getGoats();}, 10000);
+}
 	</script>
   </head>
   <body onload="fixContentSizes(); checkGoats(); initialiseGrid(); ">
