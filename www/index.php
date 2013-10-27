@@ -72,9 +72,9 @@ function checkGoats() {
 	<div id="wrap-content">
 		<div id="content">
 			<div id="howto">
-				<h1>Send an SMS</h1>
+				<h1>SEND AN SMS</h1>
 				<h2>+44 7860 033156</h2>
-				<h3>with the name of your friend</h3>
+				<h3>with the id of your FB friend</h3>
 			</div>
 			<div class="goat" id="goat1"></div>
 			<div class="goat" id="goat2"></div>
