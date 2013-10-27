@@ -47,6 +47,7 @@ function goatify ($img) {
     imagecopy($canvas, $goathead, $facePos['x'], $facePos['y'], 0, 0, $goatSize['x'], $goatSize['y']);
     imagejpeg($canvas, 'goatfaces/' . $img);
   }
+  }
   while($moreFaces);
   return true;
 
