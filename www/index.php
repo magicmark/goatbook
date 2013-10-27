@@ -25,11 +25,11 @@
 			}
 		}
 		function addGoat(imageJson) {
-			var imagePath = "http://goat.vladh.net/backend/humanfaces/" + imageJson["file"];
+			var imagePath = "http://goat.vladh.net/goatfaces/" + imageJson["file"];
 			var gridSize = Math.floor((Math.random()*3)+1);
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
-			$('<div class="goat size' + gridSize + '" style="background: url(\'' + imagePath + '\') no-repeat"></div>').appendTo("#content");
+			$('<div class="goat size' + gridSize + '" style="background: url(\'' + imagePath + '\') no-repeat;"></div>').appendTo("#content");
 		}
 		function getGoats() {
            $.ajax({
