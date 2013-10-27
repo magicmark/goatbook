@@ -39,6 +39,7 @@
 				$(currentDivId).addClass("goat");
 				$(currentDivId).css("background-image", "url('"+imagePath+"')");
 				$(currentDivId).css("background-size", "100% 100%");
+				$(currentDivId).click(function() { window.open("http://www.goatbook.co.uk/view.php?id="+imageJson["id"]); });
 			return true;
 			}
 		}
@@ -47,7 +48,7 @@
                 type: "GET",
                 url: "getgoats.php",
                 data: {
-					lastgoat: 4
+					lastgoat: 3
 				},
                 dataType:'text',
                 success: function(response){
