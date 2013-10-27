@@ -49,13 +49,17 @@
 transition: background-image 0.2s ease-in-out;
 }
 #goat1 {
-	float: left;;
+	float: left;
+	margin-left: 80px;
+	margin-top: -80px;
 }
 #goat2{
-	margin: 0 auto;
+	margin: 160px auto 0;
 }
 #goat3{
 	float:right;
+	margin-right: 160px;
+	margin-top: -400px;
 }
 #goat4{
 	position: relative;
