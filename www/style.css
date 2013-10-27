@@ -61,12 +61,6 @@ transition: background-image 0.2s ease-in-out;
 	margin-right: 160px;
 	margin-top: -400px;
 }
-#goat4{
-	position: relative;
-	top: 80px;
-	left: 1040px;
-	display:none;
-}
 .size1 {
 	width: 160px;
 	height: 160px;
