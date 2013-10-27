@@ -41,6 +41,24 @@
 	padding: 0;
 }
 
+.goat {
+	position: relative;
+}
+.size1 img {
+	width: 80px;
+	height: 80px;
+}
+
+.size2 img{
+	width: 160px;
+	height: 160px;
+}
+.size3 img{
+	width: 240px;
+	height: 240px;
+}
+
+
 #howto {
 	position: relative;
 	top: 80px;
@@ -78,3 +96,4 @@ h3 {
 	float: right;
 	margin-top: 20px;
 }
+
