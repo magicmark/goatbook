@@ -30,13 +30,15 @@
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
 			var currentDivId = "#goat" + divNumber;
+			console.log($(currentDivId).css("background-image"));
 			if($(currentDivId).css("background-image") == "url('" + imagePath + "')") {
 				return false;
 			} else {
+				$(currentDivId).removeClass();
 				$(currentDivId).addClass("size"+gridSize);
+				$(currentDivId).addClass("goat");
 				$(currentDivId).css("background-image", "url('"+imagePath+"')");
 				$(currentDivId).css("background-size", "100% 100%");
-			//$('<div class="goat size' + gridSize + '" id="goat' + divNumber + '"><img src="' + imagePath + '" /></div>').appendTo("#content");
 			return true;
 			}
 		}
@@ -57,7 +59,7 @@
             });			
 		}
 function checkGoats() {
-	window.setInterval(function(){getGoats();}, 10000);
+	window.setInterval(function(){getGoats();}, 15000);
 }
 	</script>
   </head>
