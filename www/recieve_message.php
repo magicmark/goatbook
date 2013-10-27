@@ -104,7 +104,7 @@ while (true) {
 	break;
   } else {
 	$facesGot++;
-	rename('humanfaces/'.$filename, '../backend/humanfaces/'.$filename);
+	rename('goatfaces/'.$filename, '../backend/humanfaces/'.$filename);
   }
 }
 // only look for faces if the image actually exists
