@@ -69,7 +69,7 @@
 		<div id="content">
 			<div id="howto">
 				<h1>Send an SMS</h1>
-				<h2>+44 0000 00000</h2>
+				<h2>+44 7860 033156</h2>
 				<h3>with the name of your friend</h3>
 			</div>
 			<div class="goat" id="goat1"></div>
