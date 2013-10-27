@@ -30,14 +30,14 @@
 			var gridSize = Math.floor((Math.random()*3)+1);
 			var goatWidth = gridSize * 80;
 			var goatHeight = gridSize * 80;
-			$('<div class="goat size' + gridSize + '"><img src="' + imagePath + '" /></div>').appendTo("#content");
+			$('<div class="goat size' + gridSize + '"><img src="' + imagePath + '" /></div>').prependTo("#content");
 		}
 		function getGoats() {
            $.ajax({
                 type: "GET",
                 url: "getgoats.php",
                 data: {
-					lastgoat: 53
+					lastgoat: 31
 				},
                 dataType:'text',
                 success: function(response){
